@@ -1,5 +1,1 @@
-require "smstools/version"
-
-module Smstools
-  # Your code goes here...
-end
+require 'sms_tools'
