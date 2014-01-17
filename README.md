@@ -98,10 +98,10 @@ You can check the specs for this class for more examples.
 
 #### GSM 03.38 encoding conversion
 
-The `SmsTools::GsmEncoding` class can be used to check if a given UTF-8 string can be full
+The `SmsTools::GsmEncoding` class can be used to check if a given UTF-8 string can be fully
 represented in the GSM 03.38 encoding as well as to convert from UTF-8 to GSM 03.38 and vice-versa.
 
-The main API this class gives you is:
+The main API this class provides is the following:
 
 ```ruby
 SmsTools::GsmEncoding.valid? message_text_in_utf8   # => true or false
@@ -110,7 +110,7 @@ SmsTools::GsmEncoding.from_utf8 utf8_encoded_string # => a GSM 03.38 encoded str
 SmsTools::GsmEncoding.to_utf8 gsm_encoded_string    # => an UTF-8 encoded string
 ```
 
-Check out the code of the class to find out more.
+Check out the source code of the class to find out more.
 
 ### Client-side code
 
