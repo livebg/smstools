@@ -49,9 +49,9 @@ module SmsTools
       concatenated_parts * MAX_LENGTH_FOR_ENCODING[encoding][message_type]
     end
 
-     # Returns the number of symbols, which the given text will take up in an SMS
-     # message, taking into account any double-space symbols in the GSM 03.38
-     # encoding.
+    # Returns the number of symbols which the given text will eat up in an SMS
+    # message, taking into account any double-space symbols in the GSM 03.38
+    # encoding.
     def length
       length = text.length
       length += text.chars.count { |char| GsmEncoding.double_byte?(char) } if gsm?
