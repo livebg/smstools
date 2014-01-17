@@ -45,9 +45,9 @@ class SmsTools.Message
     else
       parseInt Math.ceil(length / @maxLengthForEncoding[encoding].concatenated), 10
 
-   # Returns the number of symbols, which the given text will take up in an SMS
-   # message, taking into account any double-space symbols in the GSM 03.38
-   # encoding.
+  # Returns the number of symbols which the given text will eat up in an SMS
+  # message, taking into account any double-space symbols in the GSM 03.38
+  # encoding.
   _length: ->
     length = @text.length
 
