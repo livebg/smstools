@@ -59,8 +59,10 @@ CoffeeScript preprocessor set up.
 
 ## Contributing
 
-1. Fork it ( http://github.com/mitio/smstools/fork )
+1. [Fork the repo](http://github.com/mitio/smstools/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+3. Make your changes and provide tests for them
+4. Make sure all tests pass (run them with `bundle exec rake test`)
+5. Commit your changes (`git commit -am 'Add some feature'`)
+6. Push to the branch (`git push origin my-new-feature`)
+7. Send a pull request.
