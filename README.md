@@ -32,6 +32,22 @@ consortium.
 
 This encoding is the most widely used one when sending SMS messages.
 
+### Note on using ASCII instead of the GSM encoding
+
+Sometimes you there are problems with the special non-ascii symbols which are in the GSM encoding like `æ ø å`.
+If you have such problems, you could configure the lib to treat messages that have such symbols as they are in Unicode.
+
+You will have to specify this in two ways:
+
+#### In Ruby
+
+    SmsTools.use_gsm_encoding = false
+
+#### In Javascript
+
+    //= require sms_tools
+    SmsTools.use_gsm_encoding = false;
+
 ## Installation
 
 Add this line to your application's Gemfile:
