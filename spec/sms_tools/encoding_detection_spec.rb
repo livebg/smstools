@@ -41,6 +41,14 @@ describe SmsTools::EncodingDetection do
       it "returns Unicode as encoding for special symbols defined in GSM 03.38" do
         detection_for('09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣçΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~').encoding.must_equal :unicode
       end
+
+      it 'returns ASCII for simple ASCII text' do
+        detection_for('Hello world.').encoding.must_equal :ascii
+      end
+
+      it "defaults to ASCII encoding for empty messages" do
+        detection_for('').encoding.must_equal :ascii
+      end
     end
   end
 
