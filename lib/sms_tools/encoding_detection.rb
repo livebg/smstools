@@ -3,6 +3,10 @@ require 'sms_tools/gsm_encoding'
 module SmsTools
   class EncodingDetection
     MAX_LENGTH_FOR_ENCODING = {
+      ascii: {
+        normal:       160,
+        concatenated: 153,
+      },
       gsm: {
         normal:       160,
         concatenated: 153,
@@ -20,7 +24,18 @@ module SmsTools
     end
 
     def encoding
-      @encoding ||= GsmEncoding.valid?(text) ? :gsm : :unicode
+      @encoding ||=
+        if text.ascii_only?
+          :ascii
+        elsif SmsTools.use_gsm_encoding? and GsmEncoding.valid?(text)
+          :gsm
+        else
+          :unicode
+        end
+    end
+
+    def ascii?
+      encoding == :ascii
     end
 
     def gsm?

@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'sms_tools/encoding_detection'
+require 'sms_tools'
 
 describe SmsTools::EncodingDetection do
   it "exposes the original text as a method" do
@@ -7,26 +7,48 @@ describe SmsTools::EncodingDetection do
   end
 
   describe "encoding" do
-    it "defaults to GSM encoding for empty messages" do
-      detection_for('').encoding.must_equal :gsm
+    it "defaults to ASCII encoding for empty messages" do
+      detection_for('').encoding.must_equal :ascii
     end
 
-    it "returns GSM as encoding for simple ASCII text" do
-      detection_for('foo bar baz').encoding.must_equal :gsm
+    it "returns ASCII as encoding for simple ASCII text" do
+      detection_for('foo bar baz').encoding.must_equal :ascii
     end
 
     it "returns GSM as encoding for special symbols defined in GSM 03.38" do
       detection_for('09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣçΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~').encoding.must_equal :gsm
     end
 
-    it "returns GSM as encoding for puntucation and newline symbols" do
-      detection_for('Foo bar {} [baz]! Larodi $5. What else?').encoding.must_equal :gsm
-      detection_for("Spaces and newlines are GSM 03.38, too: \r\n").encoding.must_equal :gsm
+    it "returns ASCII as encoding for puntucation and newline symbols" do
+      detection_for('Foo bar {} [baz]! Larodi $5. What else?').encoding.must_equal :ascii
+      detection_for("Spaces and newlines are GSM 03.38, too: \r\n").encoding.must_equal :ascii
     end
 
     it "returns Unicode when non-GSM Unicode symbols are used" do
       detection_for('Foo bar лароди').encoding.must_equal :unicode
       detection_for('∞').encoding.must_equal :unicode
+    end
+
+    describe 'with SmsTools.use_gsm_encoding = false' do
+      before do
+        SmsTools.use_gsm_encoding = false
+      end
+
+      after do
+        SmsTools.use_gsm_encoding = true
+      end
+
+      it "returns Unicode as encoding for special symbols defined in GSM 03.38" do
+        detection_for('09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣçΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~').encoding.must_equal :unicode
+      end
+
+      it 'returns ASCII for simple ASCII text' do
+        detection_for('Hello world.').encoding.must_equal :ascii
+      end
+
+      it "defaults to ASCII encoding for empty messages" do
+        detection_for('').encoding.must_equal :ascii
+      end
     end
   end
 

@@ -2,6 +2,9 @@ window.SmsTools ?= {}
 
 class SmsTools.Message
   maxLengthForEncoding:
+    ascii:
+      normal: 160
+      concatenated: 153
     gsm:
       normal: 160
       concatenated: 153
@@ -20,6 +23,7 @@ class SmsTools.Message
     '€':  true
     '\\': true
 
+  asciiPattern: /^[\x00-\x7F]*$/
   gsmEncodingPattern: /^[0-9a-zA-Z@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣçΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~ \$\.\-\+\(\)\*\\\/\?\|\^\}\{\[\]\'\r\n]*$/
 
   constructor: (@text) ->
@@ -33,8 +37,19 @@ class SmsTools.Message
 
     concatenatedPartsCount * @maxLengthForEncoding[@encoding][messageType]
 
+  use_gsm_encoding: ->
+    if SmsTools['use_gsm_encoding'] == undefined
+      true
+    else
+      SmsTools['use_gsm_encoding']
+
   _encoding: ->
-    if @gsmEncodingPattern.test(@text) then 'gsm' else 'unicode'
+    if @asciiPattern.test(@text)
+      'ascii'
+    else if @use_gsm_encoding() and @gsmEncodingPattern.test(@text)
+      'gsm'
+    else
+      'unicode'
 
   _concatenatedPartsCount: ->
     encoding = @encoding
