@@ -32,12 +32,30 @@ consortium.
 
 This encoding is the most widely used one when sending SMS messages.
 
-### Note on using ASCII instead of the GSM encoding
+### Note regarding non-ASCII symbols from the GSM encoding
 
-Sometimes you there are problems with the special non-ascii symbols which are in the GSM encoding like `æ ø å`.
-If you have such problems, you could configure the lib to treat messages that have such symbols as they are in Unicode.
+The GSM 03.38 encoding is used by default. This standard defines a set of
+symbols which can be encoded in 7-bits each, thus allowing up to 160 symbols
+per SMS message (each SMS message can contain up to 140 bytes of data).
 
-You will have to specify this in two ways:
+This standard covers most of the ASCII table, but also includes some non-ASCII
+symbols such as `æ`, `ø` and `å`. If you use these in your messages, you can
+still send them as GSM encoded, having a 160-symbol limit. This is technically
+correct.
+
+In reality, however, some SMS routes have problems delivering messages which
+contain such non-ASCII symbols in the GSM encoding. The special symbols might
+be omitted, or the message might not arrive at all.
+
+Thus, it might be safer to just send messages in Unicode if the message's text
+contains any non-ASCII symbols. This is not the default as it reduces the max
+symbols count to 70 per message, instead of 160, and you might not have any
+issues with GSM-encoded messages. In case you do, however, you can turn off
+support for the GSM encoding and just treat messages as Unicode if they contain
+non-ASCII symbols.
+
+In case you decide to do so, you have to specify it in both the Ruby and the
+JavaScript part of the library, like so:
 
 #### In Ruby
 
