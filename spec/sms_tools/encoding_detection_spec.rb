@@ -16,7 +16,7 @@ describe SmsTools::EncodingDetection do
     end
 
     it "returns GSM as encoding for special symbols defined in GSM 03.38" do
-      detection_for('09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣçΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~').encoding.must_equal :gsm
+      detection_for('09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣCΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~').encoding.must_equal :gsm
     end
 
     it "returns ASCII as encoding for puntucation and newline symbols" do
@@ -39,7 +39,7 @@ describe SmsTools::EncodingDetection do
       end
 
       it "returns Unicode as encoding for special symbols defined in GSM 03.38" do
-        detection_for('09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣçΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~').encoding.must_equal :unicode
+        detection_for('09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣCΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~').encoding.must_equal :unicode
       end
 
       it 'returns ASCII for simple ASCII text' do
@@ -60,7 +60,7 @@ describe SmsTools::EncodingDetection do
     end
 
     it "computes the length of non-trivial GSM encoded messages correctly" do
-      detection_for('GSM: 09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣçΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à').length.must_equal 63
+      detection_for('GSM: 09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣÇΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à').length.must_equal 63
     end
 
     it "correctly counts the length of whitespace-only messages" do
