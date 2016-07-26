@@ -170,7 +170,7 @@ module SmsTools
         end
       end
 
-      gsm_encoded_string
+      gsm_encoded_string.force_encoding('US-ASCII')
     end
 
     def to_utf8(gsm_encoded_string)
