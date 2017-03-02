@@ -1,3 +1,5 @@
+* GsmEncoding.to_utf8 will now raise errors in case the provided argument is not a valid GSM 7-bit text.
+
 ## 0.1.1 (18 April 2016)
 
 * Replaces small c with cedilla to capital one, as per the GSM 03.38 standard (by @skliask)

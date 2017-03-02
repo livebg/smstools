@@ -4,6 +4,8 @@ module SmsTools
   module GsmEncoding
     extend self
 
+    GSM_EXTENSION_TABLE_ESCAPE_CODE = "\x1B".freeze
+
     UTF8_TO_GSM_BASE_TABLE = {
       0x0040 => "\x00", # COMMERCIAL AT
       0x00A3 => "\x01", # POUND SIGN
@@ -176,20 +178,25 @@ module SmsTools
     def to_utf8(gsm_encoded_string)
       utf8_encoded_string = ''
       escape              = false
-      escape_code         = "\e".freeze
 
       gsm_encoded_string.each_char do |char|
-        if char == escape_code
+        if char == GSM_EXTENSION_TABLE_ESCAPE_CODE
           escape = true
         elsif escape
           escape = false
-          utf8_encoded_string << [GSM_TO_UTF8[escape_code + char]].pack('U')
+          utf8_encoded_string << [fetch_utf8_char(GSM_EXTENSION_TABLE_ESCAPE_CODE + char)].pack('U')
         else
-          utf8_encoded_string << [GSM_TO_UTF8[char]].pack('U')
+          utf8_encoded_string << [fetch_utf8_char(char)].pack('U')
         end
       end
 
       utf8_encoded_string
+    end
+
+    private
+
+    def fetch_utf8_char(char)
+      GSM_TO_UTF8.fetch(char) { raise "Unsupported symbol in GSM-7 encoding: #{char}" }
     end
   end
 end
