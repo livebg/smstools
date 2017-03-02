@@ -29,6 +29,12 @@ describe SmsTools::EncodingDetection do
       detection_for('∞').encoding.must_equal :unicode
     end
 
+    it 'considers the non-breaking space character as a non-GSM Unicode symbol' do
+      non_breaking_space = "\xC2\xA0"
+
+      detection_for(non_breaking_space).encoding.must_equal :unicode
+    end
+
     describe 'with SmsTools.use_gsm_encoding = false' do
       before do
         SmsTools.use_gsm_encoding = false

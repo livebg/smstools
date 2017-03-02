@@ -1,3 +1,4 @@
+* The non-breaking space character (0x00A0 in Unicode and "\xC2\xA0" in UTF-8) is no longer regarded as a valid GSM 7-bit symbol. [#4](https://github.com/livebg/smstools/issues/4)
 * GsmEncoding.to_utf8 will now raise errors in case the provided argument is not a valid GSM 7-bit text.
 
 ## 0.1.1 (18 April 2016)
