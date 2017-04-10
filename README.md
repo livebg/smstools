@@ -4,7 +4,7 @@ A small collection of Ruby and JavaScript classes implementing often needed func
 dealing with SMS messages.
 
 The gem can also be used in a Rails application as an engine. It integrates with the asset pipeline
-and gives you access to some clinet-side SMS manipulation functionality.
+and gives you access to some client-side SMS manipulation functionality.
 
 ## Features
 
