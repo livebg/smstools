@@ -1,3 +1,7 @@
+## 0.2.1 (18 Aug 2020)
+
+* #7 Introduce `SmsTools.use_ascii_encoding` option (defaults to `true` for backwards-compatibility) that allows disabling the `:ascii` workaround encoding. See #6 and #7 for details. Thanks @kingsley-wang.
+
 ## 0.2.0 (2 March 2017)
 
 * The non-breaking space character (0x00A0 in Unicode and "\xC2\xA0" in UTF-8) is no longer regarded as a valid GSM 7-bit symbol. [#4](https://github.com/livebg/smstools/issues/4)

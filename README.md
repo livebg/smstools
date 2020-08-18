@@ -66,6 +66,16 @@ JavaScript part of the library, like so:
     //= require sms_tools
     SmsTools.use_gsm_encoding = false;
 
+There is another alternative as well. As explained in this commit – f1ffd948d4b8c – SmsTools will by
+default detect the encoding as `:ascii` if the SMS message contains ASCII-only symbols. The safest
+way to send messages would be to use an ASCII subset of the GSM encodnig.
+
+The `:ascii` encoding is informative only, however. Your SMS sending implementation will have to
+decide how to handle it. You may also find it confusing that the dummy `:ascii` encoding does not
+consider double-byte chars at all when counting the length of the message.
+
+To disable this dummy `:ascii` encoding, set `SmsTools.use_ascii_encoding` to `false`.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -183,3 +193,4 @@ assumed. It might be possible to use it in other setups as well, but you're on y
 5. Commit your changes (`git commit -am 'Add some feature'`)
 6. Push to the branch (`git push origin my-new-feature`)
 7. Send a pull request.
+
