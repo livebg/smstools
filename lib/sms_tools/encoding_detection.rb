@@ -25,7 +25,7 @@ module SmsTools
 
     def encoding
       @encoding ||=
-        if text.ascii_only?
+        if text.ascii_only? and SmsTools.use_ascii_encoding?
           :ascii
         elsif SmsTools.use_gsm_encoding? and GsmEncoding.valid?(text)
           :gsm
