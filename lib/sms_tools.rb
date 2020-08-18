@@ -15,5 +15,13 @@ module SmsTools
     def use_gsm_encoding=(value)
       @use_gsm_encoding = value
     end
+
+    def use_ascii_encoding?
+      @use_ascii_encoding.nil? ? true : @use_ascii_encoding
+    end
+
+    def use_ascii_encoding=(value)
+      @use_ascii_encoding = value
+    end
   end
 end

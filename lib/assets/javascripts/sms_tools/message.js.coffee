@@ -43,8 +43,14 @@ class SmsTools.Message
     else
       SmsTools['use_gsm_encoding']
 
+   use_ascii_encoding: ->
+    if SmsTools['use_ascii_encoding'] == undefined
+      true
+    else
+      SmsTools['use_ascii_encoding']
+
   _encoding: ->
-    if @asciiPattern.test(@text)
+    if @asciiPattern.test(@text) and @use_ascii_encoding()
       'ascii'
     else if @use_gsm_encoding() and @gsmEncodingPattern.test(@text)
       'gsm'

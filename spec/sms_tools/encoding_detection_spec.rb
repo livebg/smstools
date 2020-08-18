@@ -56,6 +56,28 @@ describe SmsTools::EncodingDetection do
         detection_for('').encoding.must_equal :ascii
       end
     end
+
+    describe 'with SmsTools.use_ascii_encoding = false' do
+      before do
+        SmsTools.use_ascii_encoding = false
+      end
+
+      after do
+        SmsTools.use_ascii_encoding = true
+      end
+
+      it "returns GSM 03.38 as encoding for special symbols defined in GSM 03.38" do
+        detection_for('09azAZ@Δ¡¿£_!Φ"¥Γ#èΛ¤éΩ%ùΠ&ìΨòΣCΘΞ:Ø;ÄäøÆ,<Ööæ=ÑñÅß>ÜüåÉ§à€~').encoding.must_equal :gsm
+      end
+
+      it 'returns GSM 03.38 for simple ASCII text' do
+        detection_for('Hello world.').encoding.must_equal :gsm
+      end
+
+      it "defaults to GSM 03.38 encoding for empty messages" do
+        detection_for('').encoding.must_equal :gsm
+      end
+    end
   end
 
   describe "message length" do
@@ -94,6 +116,26 @@ describe SmsTools::EncodingDetection do
     it "doesn't count double-space chars for Unicode encoding" do
       detection_for('Уникод: ^{}[~]|€\\').length.must_equal 17
       detection_for('Уникод: Σ: €').length.must_equal 12
+    end
+
+    describe 'with SmsTools.use_gsm_encoding = false' do
+      before do
+        SmsTools.use_gsm_encoding = false
+      end
+
+      it "returns ASCII encoded length for some specific symbols which are also in GSM 03.38" do
+        detection_for('[]').length.must_equal 2
+      end
+    end
+
+    describe 'with SmsTools.use_ascii_encoding = false' do
+      before do
+        SmsTools.use_ascii_encoding = false
+      end
+
+      it "returns GSM 03.38 encoded length for some specific symbols which are also in ASCII" do
+        detection_for('[]').length.must_equal 4
+      end
     end
   end
 
