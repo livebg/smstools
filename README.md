@@ -194,3 +194,9 @@ assumed. It might be possible to use it in other setups as well, but you're on y
 6. Push to the branch (`git push origin my-new-feature`)
 7. Send a pull request.
 
+## Publishing a new version
+
+1. Pick a version number according to Semantic Versioning.
+2. Update `CHANGELOG.md`, `version.rb` and potentially this readme.
+3. Commit the changes, tag them with `vX.Y.Z` (e.g. `v0.2.1`) and push all with `git push --tags`.
+4. Build and publish the new version of the gem with `gem build smstools.gemspec && gem push *.gem`.
