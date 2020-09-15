@@ -1,4 +1,5 @@
 require 'sms_tools/gsm_encoding'
+require "unicode/emoji"
 
 module SmsTools
   class EncodingDetection
@@ -70,6 +71,7 @@ module SmsTools
     def length
       length = text.length
       length += text.chars.count { |char| GsmEncoding.double_byte?(char) } if gsm?
+      length += text.scan(Unicode::Emoji::REGEX).count if unicode?
 
       length
     end

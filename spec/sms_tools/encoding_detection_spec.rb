@@ -172,6 +172,9 @@ describe SmsTools::EncodingDetection do
       detection_for('Σ' * 160).concatenated_parts.must_equal 1
       detection_for('Σ' * 159 + '~').concatenated_parts.must_equal 2
       detection_for('Я' * 133 + '~').concatenated_parts.must_equal 2
+      detection_for('😊' * 36).concatenated_parts.must_equal 2
+      detection_for('a' * 68 + '😊').concatenated_parts.must_equal 1
+      detection_for('a' * 69 + '😊').concatenated_parts.must_equal 2
     end
   end
 
