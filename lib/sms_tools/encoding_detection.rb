@@ -68,9 +68,12 @@ module SmsTools
     # message, taking into account any double-space symbols in the GSM 03.38
     # encoding.
     def length
-      length = text.length
-      length += text.chars.count { |char| GsmEncoding.double_byte?(char) } if gsm?
-
+      if unicode?
+        length = text.chars.sum { |char| UnicodeEncoding.character_count(char) }
+      else
+        length = text.length
+        length += text.chars.count { |char| GsmEncoding.double_byte?(char) } if gsm?
+      end
       length
     end
   end

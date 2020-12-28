@@ -118,6 +118,14 @@ describe SmsTools::EncodingDetection do
       detection_for('Уникод: Σ: €').length.must_equal 12
     end
 
+    it "counts ZWJ unicode characters correctly" do
+      detection_for('😴').length.must_equal 2
+      detection_for('🛌🏽').length.must_equal 4
+      detection_for('🤾🏽‍♀️').length.must_equal 7
+      detection_for('🇵🇵').length.must_equal 4
+      detection_for('👩‍❤️‍👩').length.must_equal 8
+    end
+
     describe 'with SmsTools.use_gsm_encoding = false' do
       before do
         SmsTools.use_gsm_encoding = false
@@ -166,11 +174,16 @@ describe SmsTools::EncodingDetection do
       concatenated_parts_for length: 135, encoding: :unicode, must_be: 3
     end
 
-    it "counts parts for actual GSM-encoded and Unicode messages" do
+    it "counts parts for actual GSM-encoded messages" do
       detection_for('').concatenated_parts.must_equal 1
-      detection_for('Я').concatenated_parts.must_equal 1
       detection_for('Σ' * 160).concatenated_parts.must_equal 1
       detection_for('Σ' * 159 + '~').concatenated_parts.must_equal 2
+    end
+
+    it "counts parts for actual Unicode-encoded messages" do
+      detection_for('Я').concatenated_parts.must_equal 1
+      detection_for('Я' * 70).concatenated_parts.must_equal 1
+      detection_for('Я' * 71).concatenated_parts.must_equal 2
       detection_for('Я' * 133 + '~').concatenated_parts.must_equal 2
     end
   end
