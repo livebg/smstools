@@ -159,7 +159,7 @@ Check out the source code of the class to find out more.
 ### Client-side code
 
 If you're using the gem in Rails 3.1 or newer, you can gain access to the `SmsTools.Message` class.
-It's interface is similar to the one of `SmsTools::EncodingDetection`. Here is an example in
+Its interface is similar to the one of `SmsTools::EncodingDetection`. Here is an example in
 CoffeeScript:
 
 ```coffeescript
