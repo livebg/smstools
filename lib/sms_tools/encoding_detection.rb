@@ -74,6 +74,7 @@ module SmsTools
         length = text.length
         length += text.chars.count { |char| GsmEncoding.double_byte?(char) } if gsm?
       end
+
       length
     end
   end
