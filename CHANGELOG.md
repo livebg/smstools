@@ -1,3 +1,7 @@
+## 0.2.2 (20 Jan 2021)
+
+* #9 Fix the way some complex Unicode characters (like composite emojis) are counted. Thanks to @bryanrite for the neat implementation. Note the fix could be **potentially backwards-incompatible** if you were relying on the incorrect behaviour previously. Technically it's still a bug fix.
+
 ## 0.2.1 (18 Aug 2020)
 
 * #7 Introduce `SmsTools.use_ascii_encoding` option (defaults to `true` for backwards-compatibility) that allows disabling the `:ascii` workaround encoding. See #6 and #7 for details. Thanks @kingsley-wang.
