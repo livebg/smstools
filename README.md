@@ -151,6 +151,7 @@ The main API this class provides is the following:
 SmsTools::GsmEncoding.valid? message_text_in_utf8   # => true or false
 
 SmsTools::GsmEncoding.from_utf8 utf8_encoded_string # => a GSM 03.38 encoded string
+SmsTools::GsmEncoding.force_from_utf8 utf8_encoded_string # => if the message text has unsupported characters force a GSM 03.38 encoded string removing the unsupported characters
 SmsTools::GsmEncoding.to_utf8 gsm_encoded_string    # => an UTF-8 encoded string
 ```
 
