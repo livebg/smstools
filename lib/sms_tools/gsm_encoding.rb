@@ -175,6 +175,23 @@ module SmsTools
       gsm_encoded_string
     end
 
+    def force_from_utf8(utf8_encoded_string)
+      gsm_encoded_string = ''
+
+      utf8_encoded_string.unpack('U*').each do |char|
+        if converted = UTF8_TO_GSM[char]
+          gsm_encoded_string << converted
+        end
+      end
+
+      gsm_encoded_string
+    end
+
+    def remove_unsupported_utf8_chars(utf8_encoded_string)
+      gsm_encoded_string = force_from_utf8 utf8_encoded_string
+      to_utf8 gsm_encoded_string
+    end
+
     def to_utf8(gsm_encoded_string)
       utf8_encoded_string = ''
       escape              = false
